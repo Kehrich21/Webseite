@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Portfolio – Architekturstudent & Bauzeichner">
+<title>Max Mustermann – Portfolio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --sand:#F5F0E8;
+  --terra:#C17A5A;
+  --terra-light:#E8C4AD;
+  --terra-dark:#8B4E2E;
+  --warm-gray:#6B6560;
+  --dark:#2C2825;
+  --white:#FDFBF8;
+  --border:#E0D8D0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Georgia',serif;background:var(--white);color:var(--dark);min-height:100vh;font-size:16px}
+
+/* HEADER */
+header{background:var(--dark);color:var(--white);position:sticky;top:0;z-index:100}
+.header-inner{max-width:1000px;margin:0 auto;padding:1.5rem 2rem 0;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem}
+.name-block h1{font-size:1.8rem;font-weight:400;letter-spacing:0.05em}
+.name-block p{color:#C8BFB5;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;margin-top:0.25rem;font-family:sans-serif}
+.lang-switcher{display:flex;gap:6px;font-family:sans-serif;padding-top:0.25rem}
+.lang-btn{background:transparent;border:1px solid #555;color:#C8BFB5;padding:4px 10px;font-size:0.75rem;cursor:pointer;border-radius:3px;letter-spacing:0.05em;transition:all 0.2s}
+.lang-btn.active,.lang-btn:hover{background:var(--terra);border-color:var(--terra);color:#fff}
+nav{max-width:1000px;margin:0 auto;padding:1.25rem 2rem 0;display:flex;gap:0;overflow-x:auto}
+.tab-btn{background:transparent;border:none;color:#9A9088;padding:0.6rem 0 0.6rem 0;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;font-family:sans-serif;border-bottom:2px solid transparent;transition:all 0.2s;margin-right:2rem;white-space:nowrap}
+.tab-btn.active{color:var(--terra-light);border-bottom-color:var(--terra)}
+.tab-btn:hover:not(.active){color:#fff}
+
+/* MAIN */
+main{max-width:1000px;margin:0 auto;padding:3rem 2rem 5rem}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.section-title{font-size:1rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--terra-dark);margin-bottom:2rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border)}
+
+/* PROFIL */
+.profile-grid{display:grid;grid-template-columns:220px 1fr;gap:3rem;align-items:start}
+.avatar{width:220px;aspect-ratio:3/4;background:var(--sand);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;color:var(--warm-gray);font-family:sans-serif;font-size:0.75rem;text-align:center;padding:1rem}
+.avatar img{width:100%;height:100%;object-fit:cover;display:none}
+.profile-text h2{font-size:1.6rem;font-weight:400;margin-bottom:0.4rem}
+.profile-text .role{color:var(--terra);font-family:sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem}
+.profile-text p{line-height:1.9;color:#4A4440;font-size:0.95rem;margin-bottom:1rem}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.skill-group h4{font-family:sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--terra);margin-bottom:0.6rem;font-weight:500}
+.skill-group ul{list-style:none;font-size:0.85rem;color:var(--warm-gray);line-height:2;font-family:sans-serif}
+.contact-bar{display:flex;gap:2rem;margin-top:2rem;flex-wrap:wrap;padding-top:1.5rem;border-top:1px solid var(--border)}
+.contact-bar a{font-family:sans-serif;font-size:0.82rem;color:var(--warm-gray);text-decoration:none;display:flex;align-items:center;gap:0.4rem}
+.contact-bar a:hover{color:var(--terra)}
+
+/* PORTFOLIO */
+.portfolio-intro{font-family:sans-serif;font-size:0.85rem;color:var(--warm-gray);margin-bottom:2rem;line-height:1.7}
+.project-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.project-card{background:var(--white);border:1px solid var(--border);transition:border-color 0.2s;cursor:default}
+.project-card:hover{border-color:var(--terra-light)}
+.project-img{aspect-ratio:16/9;background:var(--sand);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.project-img img{width:100%;height:100%;object-fit:cover;display:none}
+.project-img .placeholder{text-align:center;color:var(--warm-gray);font-family:sans-serif;font-size:0.72rem;letter-spacing:0.05em;padding:1rem}
+.project-img .placeholder svg{display:block;margin:0 auto 0.5rem;opacity:0.25}
+.project-body{padding:1rem 1.25rem 1.5rem}
+.project-module{font-family:sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--terra);margin-bottom:0.4rem;font-weight:500}
+.project-name{font-size:1rem;font-weight:400;margin-bottom:0.5rem}
+.project-desc{font-size:0.8rem;color:var(--warm-gray);line-height:1.7;font-family:sans-serif}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:0.75rem}
+.tag{background:var(--sand);color:var(--warm-gray);font-family:sans-serif;font-size:0.68rem;padding:3px 8px;border-radius:2px;letter-spacing:0.04em}
+
+/* LEBENSLAUF */
+.cv-block{margin-bottom:2.5rem}
+.cv-block-title{font-family:sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--terra);font-weight:500;margin-bottom:1.25rem}
+.cv-entry{display:grid;grid-template-columns:140px 1fr;gap:2rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.cv-entry:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.cv-date{font-family:sans-serif;font-size:0.78rem;color:var(--warm-gray);padding-top:0.1rem;line-height:1.5}
+.cv-info h4{font-size:0.95rem;font-weight:400;margin-bottom:0.2rem}
+.cv-info .org{font-family:sans-serif;font-size:0.8rem;color:var(--terra-dark);margin-bottom:0.4rem}
+.cv-info p{font-family:sans-serif;font-size:0.82rem;color:var(--warm-gray);line-height:1.7}
+.cv-divider{border:none;border-top:1px solid var(--border);margin:2rem 0}
+
+/* KONTAKT */
+.contact-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:4rem}
+.form-group{margin-bottom:1.25rem}
+.form-group label{display:block;font-family:sans-serif;font-size:0.72rem;letter-spacing:0.09em;text-transform:uppercase;color:var(--warm-gray);margin-bottom:0.5rem;font-weight:500}
+.form-group input,.form-group textarea{width:100%;background:var(--sand);border:1px solid var(--border);padding:0.7rem 0.9rem;font-family:Georgia,serif;font-size:0.9rem;color:var(--dark);outline:none;transition:border-color 0.2s;border-radius:0}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--terra)}
+.form-group textarea{height:110px;resize:vertical}
+.btn{background:var(--terra);color:#fff;border:none;padding:0.75rem 2rem;font-family:sans-serif;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background 0.2s}
+.btn:hover{background:var(--terra-dark)}
+.info-item{margin-bottom:1.75rem}
+.info-label{font-family:sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--terra);margin-bottom:0.3rem;font-weight:500}
+.info-value{font-size:0.9rem;color:var(--dark);line-height:1.7}
+.info-value a{color:var(--dark);text-decoration:none}
+.info-value a:hover{color:var(--terra)}
+
+/* FOOTER */
+footer{background:var(--sand);border-top:1px solid var(--border);text-align:center;padding:1.5rem;font-family:sans-serif;font-size:0.75rem;color:var(--warm-gray)}
+
+/* RESPONSIVE */
+@media(max-width:680px){
+  .profile-grid{grid-template-columns:1fr}
+  .avatar{width:100%;aspect-ratio:3/2}
+  .cv-entry{grid-template-columns:1fr;gap:0.2rem}
+  .contact-layout{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:1fr}
+  main{padding:2rem 1.25rem 4rem}
+  .header-inner{padding:1rem 1.25rem 0}
+  nav{padding:1rem 1.25rem 0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="name-block">
+      <h1>Max Mustermann</h1>
+      <p data-de="Architekturstudent · Bauzeichner"
+         data-en="Architecture Student · Technical Draughtsman"
+         data-it="Studente di Architettura · Disegnatore Tecnico">
+        Architekturstudent · Bauzeichner
+      </p>
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('it')">IT</button>
+    </div>
+  </div>
+  <nav>
+    <button class="tab-btn active" onclick="showTab('profil',this)"
+      data-de="Profil" data-en="Profile" data-it="Profilo">Profil</button>
+    <button class="tab-btn" onclick="showTab('portfolio',this)"
+      data-de="Portfolio" data-en="Portfolio" data-it="Portfolio">Portfolio</button>
+    <button class="tab-btn" onclick="showTab('lebenslauf',this)"
+      data-de="Lebenslauf" data-en="Résumé" data-it="Curriculum">Lebenslauf</button>
+    <button class="tab-btn" onclick="showTab('kontakt',this)"
+      data-de="Kontakt" data-en="Contact" data-it="Contatto">Kontakt</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ═══ PROFIL ═══ -->
+  <section id="tab-profil" class="tab-content active">
+    <div class="profile-grid">
+      <div>
+        <div class="avatar">
+          <!-- Ersetze src="" mit deinem Foto-Pfad, z.B. src="assets/foto.jpg" -->
+          <img src="" alt="Profilfoto">
+          <svg width="40" height="40" fill="none" stroke="#6B6560" stroke-width="1.2" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+          <span data-de="Foto einfügen" data-en="Add photo" data-it="Aggiungi foto">Foto einfügen</span>
+        </div>
+      </div>
+      <div class="profile-text">
+        <h2>Max Mustermann</h2>
+        <div class="role"
+          data-de="Architekturstudent · Wismar"
+          data-en="Architecture Student · Wismar"
+          data-it="Studente di Architettura · Wismar">
+          Architekturstudent · Wismar
+        </div>
+        <p data-de="Ich studiere Architektur und bringe eine abgeschlossene Ausbildung als Bauzeichner mit. Diese Kombination gibt mir ein tiefes Verständnis sowohl für das handwerkliche Zeichnen als auch für den konzeptionellen Entwurf."
+           data-en="I study architecture and hold a completed apprenticeship as a technical draughtsman. This combination gives me a deep understanding of both technical drawing and conceptual design."
+           data-it="Studio architettura e ho completato un apprendistato come disegnatore tecnico. Questa combinazione mi dà una profonda comprensione sia del disegno tecnico che della progettazione concettuale.">
+          Ich studiere Architektur und bringe eine abgeschlossene Ausbildung als Bauzeichner mit. Diese Kombination gibt mir ein tiefes Verständnis sowohl für das handwerkliche Zeichnen als auch für den konzeptionellen Entwurf.
+        </p>
+        <p data-de="Meine Projekte bewegen sich an der Schnittstelle von präziser Technik und gestalterischer Sensibilität – von detaillierten Plänen bis hin zu raumgreifenden Entwürfen."
+           data-en="My projects sit at the intersection of precise technique and design sensibility – from detailed construction drawings to spatial concepts."
+           data-it="I miei progetti si muovono all'intersezione tra tecnica precisa e sensibilità progettuale – da tavole tecniche a concept spaziali.">
+          Meine Projekte bewegen sich an der Schnittstelle von präziser Technik und gestalterischer Sensibilität – von detaillierten Plänen bis hin zu raumgreifenden Entwürfen.
+        </p>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h4 data-de="Software" data-en="Software" data-it="Software">Software</h4>
+            <ul><li>AutoCAD</li><li>Revit</li><li>Rhino 3D</li><li>SketchUp</li><li>Adobe Suite</li></ul>
+          </div>
+          <div class="skill-group">
+            <h4 data-de="Kompetenzen" data-en="Competences" data-it="Competenze">Kompetenzen</h4>
+            <ul>
+              <li data-de="Technisches Zeichnen" data-en="Technical Drawing" data-it="Disegno Tecnico">Technisches Zeichnen</li>
+              <li data-de="Entwurf & Konzept" data-en="Design & Concept" data-it="Progetto & Concept">Entwurf & Konzept</li>
+              <li data-de="Modellbau" data-en="Model Building" data-it="Modellismo">Modellbau</li>
+              <li data-de="3D-Visualisierung" data-en="3D Visualisation" data-it="Visualizzazione 3D">3D-Visualisierung</li>
+              <li data-de="Baurecht Grundlagen" data-en="Building Regulations" data-it="Normativa Edilizia">Baurecht Grundlagen</li>
+            </ul>
+          </div>
+        </div>
+        <div class="contact-bar">
+          <a href="mailto:max@beispiel.de">✉ max@beispiel.de</a>
+          <a href="https://linkedin.com/in/maxmustermann" target="_blank">🔗 LinkedIn</a>
+          <a href="#">📍 <span data-de="Wismar, Deutschland" data-en="Wismar, Germany" data-it="Wismar, Germania">Wismar, Deutschland</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PORTFOLIO ═══ -->
+  <section id="tab-portfolio" class="tab-content">
+    <p class="section-title" data-de="Projekte & Module" data-en="Projects & Modules" data-it="Progetti & Moduli">Projekte & Module</p>
+    <p class="portfolio-intro"
+       data-de="Eine Auswahl meiner Studien- und Ausbildungsarbeiten – von technischen Werkplänen bis zu konzeptionellen Entwürfen."
+       data-en="A selection of academic and apprenticeship work – from technical drawings to conceptual designs."
+       data-it="Una selezione di lavori accademici e di apprendistato – da tavole tecniche a progetti concettuali.">
+      Eine Auswahl meiner Studien- und Ausbildungsarbeiten – von technischen Werkplänen bis zu konzeptionellen Entwürfen.
+    </p>
+    <div class="project-grid">
+
+      <!-- Projekt 1 -->
+      <div class="project-card">
+        <div class="project-img">
+          <!-- src="assets/projekt1.jpg" -->
+          <div class="placeholder">
+            <svg width="32" height="32" fill="none" stroke="#6B6560" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+            <span data-de="Bild einfügen" data-en="Add image" data-it="Aggiungi immagine">Bild einfügen</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-module" data-de="Entwurf 1 · Semester 3" data-en="Design Studio 1 · Semester 3" data-it="Progetto 1 · Semestre 3">Entwurf 1 · Semester 3</div>
+          <h3 class="project-name" data-de="Wohnhaus im Bestand" data-en="Residential Retrofit" data-it="Recupero Residenziale">Wohnhaus im Bestand</h3>
+          <p class="project-desc"
+             data-de="Umnutzung eines historischen Gebäudes zu zeitgemäßem Wohnen. Schwerpunkt auf Konstruktion und Materialgerechtigkeit."
+             data-en="Conversion of a historic building to contemporary housing, focusing on construction and material integrity."
+             data-it="Conversione di un edificio storico in abitazione contemporanea, con focus su costruzione e uso dei materiali.">
+            Umnutzung eines historischen Gebäudes zu zeitgemäßem Wohnen. Schwerpunkt auf Konstruktion und Materialgerechtigkeit.
+          </p>
+          <div class="tags"><span class="tag">AutoCAD</span><span class="tag">Revit</span><span class="tag" data-de="Bestand" data-en="Retrofit" data-it="Recupero">Bestand</span></div>
+        </div>
+      </div>
+
+      <!-- Projekt 2 -->
+      <div class="project-card">
+        <div class="project-img">
+          <div class="placeholder">
+            <svg width="32" height="32" fill="none" stroke="#6B6560" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+            <span data-de="Bild einfügen" data-en="Add image" data-it="Aggiungi immagine">Bild einfügen</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-module" data-de="Konstruktives Entwerfen · Semester 4" data-en="Structural Design · Semester 4" data-it="Progettazione Strutturale · Semestre 4">Konstruktives Entwerfen · Semester 4</div>
+          <h3 class="project-name" data-de="Holzpavillon am Wasser" data-en="Waterfront Timber Pavilion" data-it="Padiglione in Legno sul Lungolago">Holzpavillon am Wasser</h3>
+          <p class="project-desc"
+             data-de="Leichter Holzpavillon als öffentlicher Aufenthaltsraum. Tragwerksplanung und Detailzeichnungen im Vordergrund."
+             data-en="Lightweight timber pavilion as a public gathering space. Structural planning and construction details at the centre."
+             data-it="Padiglione leggero in legno come spazio di incontro pubblico. Pianificazione strutturale e dettagli costruttivi al centro.">
+            Leichter Holzpavillon als öffentlicher Aufenthaltsraum. Tragwerksplanung und Detailzeichnungen im Vordergrund.
+          </p>
+          <div class="tags"><span class="tag">Rhino 3D</span><span class="tag" data-de="Holzbau" data-en="Timber" data-it="Legno">Holzbau</span><span class="tag" data-de="Modell" data-en="Model" data-it="Modello">Modell</span></div>
+        </div>
+      </div>
+
+      <!-- Projekt 3 -->
+      <div class="project-card">
+        <div class="project-img">
+          <div class="placeholder">
+            <svg width="32" height="32" fill="none" stroke="#6B6560" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+            <span data-de="Bild einfügen" data-en="Add image" data-it="Aggiungi immagine">Bild einfügen</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-module" data-de="Städtebau · Semester 5" data-en="Urban Design · Semester 5" data-it="Urbanistica · Semestre 5">Städtebau · Semester 5</div>
+          <h3 class="project-name" data-de="Quartiersentwicklung Hafen" data-en="Harbour Quarter Development" data-it="Sviluppo del Quartiere Portuale">Quartiersentwicklung Hafen</h3>
+          <p class="project-desc"
+             data-de="Städtebauliches Konzept zur Revitalisierung eines Hafenareals. Nutzungsmischung, Erschließung und Freiraumgestaltung."
+             data-en="Urban concept for revitalising a harbour site – mixed use, circulation and public space design."
+             data-it="Concept urbano per la rivitalizzazione di un'area portuale – mix funzionale, percorsi e spazi pubblici.">
+            Städtebauliches Konzept zur Revitalisierung eines Hafenareals. Nutzungsmischung, Erschließung und Freiraumgestaltung.
+          </p>
+          <div class="tags"><span class="tag">SketchUp</span><span class="tag" data-de="Städtebau" data-en="Urban" data-it="Urbanistica">Städtebau</span></div>
+        </div>
+      </div>
+
+      <!-- Projekt 4 – Ausbildung -->
+      <div class="project-card">
+        <div class="project-img">
+          <div class="placeholder">
+            <svg width="32" height="32" fill="none" stroke="#6B6560" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+            <span data-de="Bild einfügen" data-en="Add image" data-it="Aggiungi immagine">Bild einfügen</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-module" data-de="Bauzeichner-Ausbildung" data-en="Draughtsman Apprenticeship" data-it="Apprendistato come Disegnatore">Bauzeichner-Ausbildung</div>
+          <h3 class="project-name" data-de="Technische Werkpläne" data-en="Technical Working Drawings" data-it="Tavole Tecniche di Lavoro">Technische Werkpläne</h3>
+          <p class="project-desc"
+             data-de="Präzise Werkpläne aus der Ausbildungszeit: Grundrisse, Schnitte, Ansichten und Detailzeichnungen."
+             data-en="Precise working drawings from the apprenticeship: floor plans, sections, elevations and construction details."
+             data-it="Tavole tecniche precise dall'apprendistato: piante, sezioni, prospetti e dettagli costruttivi.">
+            Präzise Werkpläne aus der Ausbildungszeit: Grundrisse, Schnitte, Ansichten und Detailzeichnungen.
+          </p>
+          <div class="tags"><span class="tag">AutoCAD</span><span class="tag" data-de="Werkpläne" data-en="Working Drawings" data-it="Tavole Tecniche">Werkpläne</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ LEBENSLAUF ═══ -->
+  <section id="tab-lebenslauf" class="tab-content">
+    <p class="section-title" data-de="Lebenslauf" data-en="Résumé" data-it="Curriculum Vitae">Lebenslauf</p>
+
+    <div class="cv-block">
+      <div class="cv-block-title" data-de="Ausbildung & Studium" data-en="Education" data-it="Formazione">Ausbildung & Studium</div>
+      <div class="cv-entry">
+        <div class="cv-date">2022 – <span data-de="heute" data-en="present" data-it="oggi">heute</span></div>
+        <div class="cv-info">
+          <h4 data-de="Bachelor of Arts – Architektur" data-en="Bachelor of Arts – Architecture" data-it="Bachelor of Arts – Architettura">Bachelor of Arts – Architektur</h4>
+          <div class="org" data-de="Hochschule Wismar" data-en="Wismar University of Applied Sciences" data-it="Università di Scienze Applicate di Wismar">Hochschule Wismar</div>
+          <p data-de="Schwerpunkte: Entwurf, Konstruktion, Städtebau. Aktuell im 6. Semester." data-en="Focus: design, construction, urban planning. Currently in the 6th semester." data-it="Aree di focus: progetto, costruzione, urbanistica. Attualmente al 6° semestre.">Schwerpunkte: Entwurf, Konstruktion, Städtebau. Aktuell im 6. Semester.</p>
+        </div>
+      </div>
+      <div class="cv-entry">
+        <div class="cv-date">2019 – 2022</div>
+        <div class="cv-info">
+          <h4 data-de="Ausbildung zum Bauzeichner" data-en="Apprenticeship – Technical Draughtsman" data-it="Apprendistato – Disegnatore Tecnico">Ausbildung zum Bauzeichner</h4>
+          <div class="org" data-de="Architekturbüro Muster GmbH, Musterstadt" data-en="Muster Architecture Office, Musterstadt" data-it="Studio di Architettura Muster GmbH, Musterstadt">Architekturbüro Muster GmbH, Musterstadt</div>
+          <p data-de="Abschluss mit Auszeichnung. Inhalte: Technisches Zeichnen, CAD, Baurecht, Baukonstruktion." data-en="Completed with distinction. Topics: technical drawing, CAD, building law, construction." data-it="Completato con lode. Contenuti: disegno tecnico, CAD, normativa edilizia, costruzione.">Abschluss mit Auszeichnung. Inhalte: Technisches Zeichnen, CAD, Baurecht, Baukonstruktion.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="cv-divider">
+
+    <div class="cv-block">
+      <div class="cv-block-title" data-de="Praktika & Berufserfahrung" data-en="Internships & Experience" data-it="Tirocini & Esperienze">Praktika & Berufserfahrung</div>
+      <div class="cv-entry">
+        <div class="cv-date">2023</div>
+        <div class="cv-info">
+          <h4 data-de="Praktikum Architektur" data-en="Architecture Internship" data-it="Tirocinio in Architettura">Praktikum Architektur</h4>
+          <div class="org" data-de="Musterbüro, Stadt" data-en="Sample Office, City" data-it="Studio di Esempio, Città">Musterbüro, Stadt</div>
+          <p data-de="Mitarbeit an Entwurfs- und Ausführungsplanung. Werkpläne und 3D-Modelle für laufende Projekte." data-en="Involved in design and construction documentation. Working drawings and 3D models for ongoing projects." data-it="Partecipazione alla progettazione e documentazione costruttiva. Tavole e modelli 3D per progetti in corso.">Mitarbeit an Entwurfs- und Ausführungsplanung. Werkpläne und 3D-Modelle für laufende Projekte.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="cv-divider">
+
+    <div class="cv-block">
+      <div class="cv-block-title" data-de="Sprachen" data-en="Languages" data-it="Lingue">Sprachen</div>
+      <div class="cv-entry">
+        <div class="cv-date" data-de="Deutsch" data-en="German" data-it="Tedesco">Deutsch</div>
+        <div class="cv-info"><h4 data-de="Muttersprache" data-en="Native" data-it="Madrelingua">Muttersprache</h4></div>
+      </div>
+      <div class="cv-entry">
+        <div class="cv-date" data-de="Englisch" data-en="English" data-it="Inglese">Englisch</div>
+        <div class="cv-info"><h4 data-de="Fließend · B2/C1" data-en="Fluent · B2/C1" data-it="Fluente · B2/C1">Fließend · B2/C1</h4></div>
+      </div>
+      <div class="cv-entry">
+        <div class="cv-date" data-de="Italienisch" data-en="Italian" data-it="Italiano">Italienisch</div>
+        <div class="cv-info"><h4 data-de="Grundkenntnisse · A2" data-en="Basic · A2" data-it="Livello base · A2">Grundkenntnisse · A2</h4></div>
+      </div>
+    </div>
+
+    <hr class="cv-divider">
+
+    <div class="cv-block">
+      <div class="cv-block-title" data-de="Software & Werkzeuge" data-en="Software & Tools" data-it="Software & Strumenti">Software & Werkzeuge</div>
+      <div class="cv-entry">
+        <div class="cv-date">CAD / BIM</div>
+        <div class="cv-info"><p>AutoCAD · Revit · ArchiCAD</p></div>
+      </div>
+      <div class="cv-entry">
+        <div class="cv-date">3D / Render</div>
+        <div class="cv-info"><p>Rhino 3D · SketchUp · Lumion</p></div>
+      </div>
+      <div class="cv-entry">
+        <div class="cv-date">Grafik</div>
+        <div class="cv-info"><p>Adobe Photoshop · Illustrator · InDesign</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ KONTAKT ═══ -->
+  <section id="tab-kontakt" class="tab-content">
+    <p class="section-title" data-de="Kontakt" data-en="Contact" data-it="Contatto">Kontakt</p>
+    <div class="contact-layout">
+      <div>
+        <div class="form-group">
+          <label data-de="Name" data-en="Name" data-it="Nome">Name</label>
+          <input type="text">
+        </div>
+        <div class="form-group">
+          <label>E-Mail</label>
+          <input type="email">
+        </div>
+        <div class="form-group">
+          <label data-de="Betreff" data-en="Subject" data-it="Oggetto">Betreff</label>
+          <input type="text">
+        </div>
+        <div class="form-group">
+          <label data-de="Nachricht" data-en="Message" data-it="Messaggio">Nachricht</label>
+          <textarea></textarea>
+        </div>
+        <!-- Für echten Mailversand: Formspree.io einbinden (kostenlos) -->
+        <button class="btn" data-de="Nachricht senden" data-en="Send message" data-it="Invia messaggio">Nachricht senden</button>
+      </div>
+      <div>
+        <div class="info-item">
+          <div class="info-label">E-Mail</div>
+          <div class="info-value"><a href="mailto:max@beispiel.de">max@beispiel.de</a></div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">LinkedIn</div>
+          <div class="info-value"><a href="https://linkedin.com/in/maxmustermann" target="_blank">linkedin.com/in/maxmustermann</a></div>
+        </div>
+        <div class="info-item">
+          <div class="info-label" data-de="Standort" data-en="Location" data-it="Posizione">Standort</div>
+          <div class="info-value" data-de="Wismar, Deutschland" data-en="Wismar, Germany" data-it="Wismar, Germania">Wismar, Deutschland</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label" data-de="Verfügbar für" data-en="Available for" data-it="Disponibile per">Verfügbar für</div>
+          <div class="info-value"
+            data-de="Praktika & Kooperationen – auch international"
+            data-en="Internships & collaborations – including international"
+            data-it="Tirocini e collaborazioni – anche internazionali">
+            Praktika & Kooperationen – auch international
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span data-de="© 2026 Max Mustermann · Architektur & Bauzeichnung" data-en="© 2026 Max Mustermann · Architecture & Technical Drawing" data-it="© 2026 Max Mustermann · Architettura & Disegno Tecnico">© 2026 Max Mustermann · Architektur & Bauzeichnung</span>
+</footer>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+let lang = 'de';
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.toLowerCase() === l);
+  });
+  document.querySelectorAll('[data-' + l + ']').forEach(el => {
+    el.textContent = el.getAttribute('data-' + l);
+  });
+  document.documentElement.lang = l;
+}
+</script>
+</body>
+</html>
